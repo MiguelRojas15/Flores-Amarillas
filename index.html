@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Gaby 🌻</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #f5c518;
+    --amber: #e8a000;
+    --sunflower: #ffdb4d;
+    --deep: #b36b00;
+    --cream: #fffbea;
+    --brown: #3d1f00;
+    --green: #2d5a1b;
+    --green-light: #4a8c2a;
+    --petal-shadow: rgba(180, 100, 0, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0a1a00 0%, #1a3a06 40%, #0d2200 100%);
+    font-family: 'Lora', serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Fondo estrellado */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: rgba(255,220,80,0.7);
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) infinite alternate ease-in-out;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.1; transform: scale(0.8); }
+    to   { opacity: 1;   transform: scale(1.2); }
+  }
+
+  /* Cursor personalizado */
+  .cursor {
+    position: fixed;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffdb4d, #e8a000);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 12px 4px rgba(245,197,24,0.5);
+  }
+
+  /* Contenedor principal */
+  .scene {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  /* Título */
+  .title-block {
+    text-align: center;
+    margin-bottom: 10px;
+    animation: fadeDown 1.2s ease both;
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .para {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    color: rgba(255,219,77,0.7);
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  .nombre {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(245,197,24,0.6), 0 2px 0 var(--deep);
+    letter-spacing: 2px;
+  }
+  .mona {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    color: var(--sunflower);
+    opacity: 0.85;
+    margin-top: -4px;
+  }
+
+  /* Ramo de flores */
+  .bouquet {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 460px;
+    margin: 30px auto 10px;
+    animation: fadeUp 1.4s ease 0.3s both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SVG flores */
+  .flower-svg {
+    position: absolute;
+    bottom: 0;
+    transform-origin: center bottom;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));
+  }
+
+  /* Animaciones de balanceo */
+  @keyframes sway1 { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
+  @keyframes sway2 { 0%,100%{transform:rotate(3deg)}  50%{transform:rotate(-5deg)} }
+  @keyframes sway3 { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(6deg)} }
+  @keyframes sway4 { 0%,100%{transform:rotate(5deg)}  50%{transform:rotate(-3deg)} }
+  @keyframes sway5 { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(2deg)} }
+  @keyframes sway6 { 0%,100%{transform:rotate(2deg)}  50%{transform:rotate(-4deg)} }
+  @keyframes sway7 { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(5deg)} }
+
+  @keyframes petalGlow {
+    0%,100% { filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4)) brightness(1); }
+    50%      { filter: drop-shadow(0 6px 20px rgba(245,197,24,0.5)) brightness(1.08); }
+  }
+
+  /* Cinta del ramo */
+  .ribbon {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    z-index: 10;
+  }
+
+  /* Mensaje */
+  .message-card {
+    background: rgba(255,245,200,0.07);
+    border: 1.5px solid rgba(245,197,24,0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 36px 44px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    margin: 10px auto 0;
+    animation: fadeUp 1.4s ease 0.6s both;
+    box-shadow: 0 0 60px rgba(245,197,24,0.08), inset 0 0 40px rgba(255,220,80,0.04);
+  }
+
+  .message-card p {
+    color: #ffe9a0;
+    font-size: 1.12rem;
+    line-height: 1.85;
+    font-style: italic;
+  }
+  .message-card p + p {
+    margin-top: 18px;
+  }
+  .message-card .firma {
+    margin-top: 28px;
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .heart-row {
+    font-size: 1.5rem;
+    margin: 12px 0 0;
+    letter-spacing: 6px;
+    animation: heartbeat 1.4s ease infinite;
+  }
+  @keyframes heartbeat {
+    0%,100%{ transform: scale(1); }
+    30%    { transform: scale(1.25); }
+    60%    { transform: scale(1.1); }
+  }
+
+  /* Pétalos cayendo */
+  .petal {
+    position: fixed;
+    top: -30px;
+    width: 14px; height: 18px;
+    border-radius: 50% 0 50% 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { opacity:0; transform: translateY(0) rotate(0deg) scale(0.8); }
+    10%  { opacity:0.85; }
+    90%  { opacity:0.7; }
+    100% { opacity:0; transform: translateY(110vh) rotate(520deg) scale(1.1); }
+  }
+
+  /* Partículas de brillo */
+  .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    border-radius: 50%;
+    animation: sparkleAnim 0.8s ease forwards;
+  }
+  @keyframes sparkleAnim {
+    0%   { opacity:1; transform: scale(1) translate(0,0); }
+    100% { opacity:0; transform: scale(0) translate(var(--tx), var(--ty)); }
+  }
+
+  /* Botón */
+  .btn-love {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 38px;
+    background: linear-gradient(135deg, var(--gold), var(--amber));
+    color: var(--brown);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 24px rgba(245,197,24,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 1.4s ease 0.9s both;
+  }
+  .btn-love:hover {
+    transform: scale(1.06) translateY(-2px);
+    box-shadow: 0 8px 36px rgba(245,197,24,0.6);
+  }
+
+  /* Modal de flores extras */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: linear-gradient(160deg, #1a3a06, #0a1a00);
+    border: 1.5px solid rgba(245,197,24,0.4);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.7); }
+    to   { opacity:1; transform: scale(1); }
+  }
+  .modal-box h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  .modal-box p { color: #ffe9a0; font-style: italic; line-height: 1.8; }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 18px;
+    background: none; border: none;
+    color: var(--gold); font-size: 1.6rem;
+    cursor: pointer; opacity: 0.7;
+  }
+  .modal-close:hover { opacity: 1; }
+  .modal-flowers { font-size: 3rem; margin: 20px 0 10px; letter-spacing: 8px; }
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+
+<!-- Estrellas -->
+<div class="stars" id="stars"></div>
+
+<!-- Pétalos cayendo -->
+<div id="petals"></div>
+
+<!-- Escena principal -->
+<div class="scene">
+
+  <div class="title-block">
+    <div class="para">Para mi</div>
+    <div class="nombre">Gaby</div>
+    <div class="mona">Mi mona hermosa 🌻</div>
+  </div>
+
+  <!-- Ramo SVG -->
+  <div class="bouquet" id="bouquet">
+    <svg class="flower-svg" style="left:50%;transform:translateX(-50%);animation:sway3 4.2s ease-in-out infinite,petalGlow 3s ease-in-out infinite;width:520px;height:440px;z-index:5" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Tallo -->
+      <path d="M100 200 Q98 160 100 130" stroke="#2d5a1b" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M100 165 Q85 150 75 155" stroke="#2d5a1b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="70" cy="154" rx="10" ry="6" fill="#4a8c2a" transform="rotate(-20,70,154)"/>
+      <path d="M100 150 Q115 135 125 140" stroke="#2d5a1b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="128" cy="139" rx="10" ry="6" fill="#4a8c2a" transform="rotate(15,128,139)"/>
+      <!-- Centro -->
+      <circle cx="100" cy="95" r="18" fill="#5c3100"/>
+      <circle cx="100" cy="95" r="13" fill="#3d1f00"/>
+      <!-- Puntos del centro -->
+      <circle cx="97" cy="92" r="1.8" fill="#a06020" opacity="0.9"/>
+      <circle cx="103" cy="91" r="1.5" fill="#a06020" opacity="0.9"/>
+      <circle cx="100" cy="88" r="1.6" fill="#a06020" opacity="0.9"/>
+      <circle cx="95" cy="97" r="1.4" fill="#a06020" opacity="0.9"/>
+      <circle cx="105" cy="97" r="1.6" fill="#a06020" opacity="0.9"/>
+      <circle cx="100" cy="100" r="1.5" fill="#a06020" opacity="0.9"/>
+      <circle cx="107" cy="93" r="1.4" fill="#a06020" opacity="0.9"/>
+      <circle cx="93" cy="98" r="1.3" fill="#a06020" opacity="0.9"/>
+      <!-- Pétalos grandes -->
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(0,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(30,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(60,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(90,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(120,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(150,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(180,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(210,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(240,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(270,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#f5c518" transform="rotate(300,100,95)"/>
+      <ellipse cx="100" cy="67" rx="9" ry="22" fill="#ffdb4d" transform="rotate(330,100,95)"/>
+    </svg>
+
+    <!-- Flor izquierda -->
+    <svg class="flower-svg" style="left:8%;animation:sway1 3.8s ease-in-out infinite,petalGlow 2.8s ease-in-out 0.5s infinite;width:280px;height:320px;z-index:3" viewBox="0 0 200 200">
+      <path d="M100 200 Q97 155 100 120" stroke="#2d5a1b" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M100 170 Q80 155 70 162" stroke="#2d5a1b" stroke-width="2.5" fill="none"/>
+      <ellipse cx="65" cy="161" rx="10" ry="6" fill="#4a8c2a" transform="rotate(-18,65,161)"/>
+      <circle cx="100" cy="90" r="16" fill="#5c3100"/>
+      <circle cx="100" cy="90" r="11" fill="#3d1f00"/>
+      <circle cx="97" cy="87" r="1.6" fill="#a06020" opacity="0.9"/>
+      <circle cx="103" cy="88" r="1.4" fill="#a06020"/>
+      <circle cx="100" cy="84" r="1.5" fill="#a06020"/>
+      <circle cx="95" cy="93" r="1.3" fill="#a06020"/>
+      <circle cx="105" cy="93" r="1.4" fill="#a06020"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(0,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#f5c518" transform="rotate(36,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(72,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#f5c518" transform="rotate(108,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(144,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#f5c518" transform="rotate(180,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(216,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#f5c518" transform="rotate(252,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(288,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#f5c518" transform="rotate(324,100,90)"/>
+    </svg>
+
+    <!-- Flor derecha -->
+    <svg class="flower-svg" style="right:8%;animation:sway2 4.5s ease-in-out infinite,petalGlow 3.2s ease-in-out 1s infinite;width:280px;height:320px;z-index:3" viewBox="0 0 200 200">
+      <path d="M100 200 Q103 155 100 120" stroke="#2d5a1b" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <path d="M100 170 Q120 155 130 162" stroke="#2d5a1b" stroke-width="2.5" fill="none"/>
+      <ellipse cx="135" cy="161" rx="10" ry="6" fill="#4a8c2a" transform="rotate(18,135,161)"/>
+      <circle cx="100" cy="90" r="16" fill="#5c3100"/>
+      <circle cx="100" cy="90" r="11" fill="#3d1f00"/>
+      <circle cx="97" cy="87" r="1.6" fill="#a06020" opacity="0.9"/>
+      <circle cx="103" cy="88" r="1.4" fill="#a06020"/>
+      <circle cx="100" cy="84" r="1.5" fill="#a06020"/>
+      <circle cx="95" cy="93" r="1.3" fill="#a06020"/>
+      <circle cx="105" cy="93" r="1.4" fill="#a06020"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#ffdb4d" transform="rotate(0,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(36,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#ffdb4d" transform="rotate(72,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(108,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#ffdb4d" transform="rotate(144,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(180,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#ffdb4d" transform="rotate(216,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(252,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#ffdb4d" transform="rotate(288,100,90)"/>
+      <ellipse cx="100" cy="65" rx="8" ry="20" fill="#e8a000" transform="rotate(324,100,90)"/>
+    </svg>
+
+    <!-- Flor pequeña izquierda -->
+    <svg class="flower-svg" style="left:22%;animation:sway4 3.3s ease-in-out 0.7s infinite;width:200px;height:260px;z-index:4" viewBox="0 0 200 200">
+      <path d="M100 200 Q96 160 100 128" stroke="#2d5a1b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="13" fill="#5c3100"/>
+      <circle cx="100" cy="100" r="9" fill="#3d1f00"/>
+      <circle cx="98" cy="97" r="1.3" fill="#a06020"/>
+      <circle cx="102" cy="98" r="1.2" fill="#a06020"/>
+      <circle cx="100" cy="95" r="1.2" fill="#a06020"/>
+      <circle cx="97" cy="103" r="1.1" fill="#a06020"/>
+      <circle cx="103" cy="103" r="1.2" fill="#a06020"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(0,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#e8a000" transform="rotate(45,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(90,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#e8a000" transform="rotate(135,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(180,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#e8a000" transform="rotate(225,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(270,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#e8a000" transform="rotate(315,100,100)"/>
+    </svg>
+
+    <!-- Flor pequeña derecha -->
+    <svg class="flower-svg" style="right:22%;animation:sway5 4s ease-in-out 0.3s infinite;width:200px;height:250px;z-index:4" viewBox="0 0 200 200">
+      <path d="M100 200 Q104 160 100 128" stroke="#2d5a1b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="13" fill="#5c3100"/>
+      <circle cx="100" cy="100" r="9" fill="#3d1f00"/>
+      <circle cx="98" cy="97" r="1.3" fill="#a06020"/>
+      <circle cx="102" cy="98" r="1.2" fill="#a06020"/>
+      <circle cx="100" cy="95" r="1.2" fill="#a06020"/>
+      <circle cx="97" cy="103" r="1.1" fill="#a06020"/>
+      <circle cx="103" cy="103" r="1.2" fill="#a06020"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#ffdb4d" transform="rotate(0,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(45,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#ffdb4d" transform="rotate(90,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(135,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#ffdb4d" transform="rotate(180,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(225,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#ffdb4d" transform="rotate(270,100,100)"/>
+      <ellipse cx="100" cy="78" rx="7" ry="17" fill="#f5c518" transform="rotate(315,100,100)"/>
+    </svg>
+
+    <!-- Cinta -->
+    <svg class="ribbon" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 30 Q30 10 60 30 Q90 50 110 30" stroke="#e8a000" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M10 30 Q30 50 60 30 Q90 10 110 30" stroke="#f5c518" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="60" cy="30" r="7" fill="#ffdb4d" stroke="#b36b00" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <!-- Tarjeta de mensaje -->
+  <div class="message-card">
+    <p>Mi mona hermosa, sé que no me sabía la fecha  <br>y eso no tiene excusa válida, ademas se lo freaky que eres con estas fechas.</p>
+    <p>Pero eso sí, la distancia no me va a impedir<br>mandarte tus flores. Estas son para ti,<br>tuyas aunque sean digitales, tuyas aunque estemos lejos.</p>
+    <p>Porque tú te mereces girasoles, siempre.</p>
+    <div class="firma">Con todo mi amor 🌻</div>
+    <div class="heart-row">💛 💛 💛</div>
+  </div>
+
+  <button class="btn-love" onclick="openModal()">✨ Dale click monaaaa ✨</button>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Para Gaby 🌻</h2>
+    <div class="modal-flowers">🌻🌼🌻🌼🌻</div>
+    <p>Estas flores nunca se marchitan, nunca se secan, nunca te dejan. Igual que yo: a cualquier distancia, siempre contigo.</p>
+    <div class="heart-row" style="font-size:2rem;margin-top:20px">💛</div>
+  </div>
+</div>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+// Estrellas
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    width:${size}px;height:${size}px;
+    --d:${(Math.random()*3+2).toFixed(1)}s;
+    animation-delay:${(Math.random()*4).toFixed(1)}s;
+  `;
+  starsEl.appendChild(s);
+}
+
+// Pétalos cayendo
+const petalsEl = document.getElementById('petals');
+const petalColors = ['#f5c518','#ffdb4d','#e8a000','#ffe066','#ffd000'];
+for (let i = 0; i < 22; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  const color = petalColors[Math.floor(Math.random()*petalColors.length)];
+  const size = Math.random()*10+8;
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    width:${size}px;height:${size*1.3}px;
+    background:${color};
+    animation-duration:${(Math.random()*6+7).toFixed(1)}s;
+    animation-delay:${(Math.random()*8).toFixed(1)}s;
+    opacity:0;
+    transform: rotate(${Math.random()*360}deg);
+  `;
+  petalsEl.appendChild(p);
+}
+
+// Sparkles al hacer click
+document.addEventListener('click', e => {
+  for (let i = 0; i < 8; i++) {
+    const sp = document.createElement('div');
+    sp.className = 'sparkle';
+    const size = Math.random()*8+4;
+    const angle = Math.random()*2*Math.PI;
+    const dist = Math.random()*60+20;
+    sp.style.cssText = `
+      left:${e.clientX - size/2}px;
+      top:${e.clientY - size/2}px;
+      width:${size}px;height:${size}px;
+      background:${petalColors[Math.floor(Math.random()*petalColors.length)]};
+      --tx:${Math.cos(angle)*dist}px;
+      --ty:${Math.sin(angle)*dist}px;
+    `;
+    document.body.appendChild(sp);
+    setTimeout(() => sp.remove(), 800);
+  }
+});
+
+// Modal
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  // Lluvia de pétalos extra
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.cssText = `
+        left:${Math.random()*100}%;
+        width:${Math.random()*10+8}px;
+        background:${petalColors[Math.floor(Math.random()*petalColors.length)]};
+        animation-duration:${(Math.random()*3+4).toFixed(1)}s;
+        animation-delay:0s;
+        opacity:0;
+      `;
+      petalsEl.appendChild(p);
+      setTimeout(() => p.remove(), 7000);
+    }, i * 80);
+  }
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+</script>
+</body>
+</html>
